@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Assuming you have a CSS file like styles.css */
+@font-face {
+    font-family: 'MarkPro';
+    src: url('./assets/fonts/MARKPRO.OTF') format('truetype');
+    /* Add more src entries for other font weights if needed */
+  }
+  
+  body {
+    font-family: 'MarkPro', sans-serif;
+    /* Or apply the font to specific elements */
+  }
+  
