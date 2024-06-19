@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div>
-      <p>hey im {currentUser.user.username}</p>
+      <p>hey im {currentUser?.user?.username}</p>
     </div>
   )
 }

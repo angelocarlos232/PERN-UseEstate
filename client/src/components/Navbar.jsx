@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom';
 import About from '../pages/About';
 import SignIn from '../pages/SignIn';
 import Home from '../pages/Home';
-
+import { useSelector } from 'react-redux';
+import NoUser from '../assets/images/no-user.png'
 
 const Navbar = () => {
+
+  const { currentUser } = useSelector((state) => state.user);
+
+
   return (
     <header className='bg-fafafa shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-5'>
@@ -19,10 +24,14 @@ const Navbar = () => {
          type='text' placeholder='Search...' />
          <SearchIcon />
       </form>
-      <ul className='flex gap-4'>
+      <ul className='flex gap-8 items-center'>
       <Link to='/'><li className="hidden sm:inline text-default-brown hover:text-default-red hover:border-b-2 hover:border-default-red">Home</li></Link>
       <Link to='/about'><li className="hidden sm:inline text-default-brown hover:text-default-red hover:border-b-2 hover:border-default-red">About</li></Link>
-      <Link to='/signin'><li className=" sm:inline text-default-brown hover:text-default-red hover:border-b-2 hover:border-default-red">Sign In</li></Link>   
+      {!currentUser ? 
+        <><Link to='/signin'><li className=" sm:inline text-default-brown hover:text-default-red hover:border-b-2 hover:border-default-red">Sign In</li></Link>   </> 
+      : 
+        <><Link to ='/profile'><img src={NoUser} className='rounded-3xl h-10 w-10'></img></Link></>}
+      
       
       </ul>
       </div>
