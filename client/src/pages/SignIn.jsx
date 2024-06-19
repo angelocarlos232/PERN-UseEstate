@@ -113,7 +113,7 @@ function SignIn() {
               className="h-4 w-4 text-default-red focus:ring-default-hover-red border-gray-300 rounded"
             />
             <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-              Remember me
+              Remember me.
             </label>
           </div>
 
