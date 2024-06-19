@@ -14,4 +14,14 @@
     font-family: 'MarkPro', sans-serif;
     /* Or apply the font to specific elements */
   }
+
+
+  .textfield_1{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+    border-radius: 50px;
+  }
   
