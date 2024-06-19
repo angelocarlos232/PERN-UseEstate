@@ -45,28 +45,32 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await prisma.user.findUnique({
-        where: { email },
-      });
-    
-    if (!validUser)
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+      where: { email },
+    });
+
+    if (!validUser) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
 
     const validPassword = bcryptjs.compareSync(password, validUser.password);
-    if (!validPassword)
-      return res
-        .status(401)
-        .json({ success: false, message: "Wrong email or password" });
+    if (!validPassword) {
+      return res.status(401).json({ success: false, message: 'Wrong email or password' });
+    }
 
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT);
-    res
-      .cookie("access_token", token, {
-        httpOnly: true, // Ensures the cookie is sent only over HTTP(S), not accessible via JavaScript
-      })
-      .status(200)
-      .json({ success: true, ...rest });
+    const token = jwt.sign({ id: validUser.id }, process.env.JWT_SECRET);
+
+    // Return user data without the password
+    const { password: pass, ...userData } = validUser;
+
+    // Set cookie and respond
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      sameSite: 'Strict',
+    })
+    .status(200)
+    .json({ success: true, user: userData });
   } catch (error) {
+    console.error('Error during signin:', error); // Log the error
     next(error);
   }
 };

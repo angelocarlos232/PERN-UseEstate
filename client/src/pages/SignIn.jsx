@@ -33,9 +33,23 @@ function SignIn() {
           credentials: 'include',
       });
       
-      const data = await res.json();
+    
       
-     
+      if (!res.ok) {
+          // Handle error responses based on status code
+          if (res.status === 404) {
+              toast.error('User not found');
+          } else if (res.status === 401) {
+              toast.error('Wrong email or password');
+          } else {
+              toast.error(data.message || 'An error occurred');
+              console.log(data.message)
+          }
+          dispatch(signInFailure(data.message));
+          return;
+      }
+
+        const data = await res.json();
 
       dispatch(signInSuccess(data))
       navigate('/');
@@ -113,7 +127,7 @@ function SignIn() {
               className="h-4 w-4 text-default-red focus:ring-default-hover-red border-gray-300 rounded"
             />
             <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
-              Remember me.
+              Remember me
             </label>
           </div>
 
