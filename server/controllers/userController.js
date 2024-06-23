@@ -74,3 +74,15 @@ export const signin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const update = async (req,res) => {
+  const {updateUsername, updatePassword} = req.body;
+
+  console.log("nice")
+
+  try {
+    
+  } catch (error) {
+    
+  }
+}
